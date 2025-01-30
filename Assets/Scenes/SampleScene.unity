@@ -448,7 +448,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocidad: 5
   posX: 0
-  fuerzaSalto: 8
+  fuerzaSalto: 6
   PlayerRB: {fileID: 1380322874}
   animator: {fileID: 1380322876}
   Proyectil: {fileID: 8994010192046366915, guid: 4aaee7a84d0596a428c058bff2dc210b, type: 3}

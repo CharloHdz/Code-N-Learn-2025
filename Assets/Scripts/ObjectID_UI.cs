@@ -137,26 +137,25 @@ public class ObjectID_UI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         switch (tipoBloque)
         {
             case TipoBloque.Saltar:
-                Player.Instance.PlayerRB.AddForce(transform.up * 500);
+                Player.Instance.PlayerRB.AddForce(transform.up * Player.Instance.fuerzaSalto, ForceMode2D.Impulse);
                 //Player.Instance.AnimJump();
-                Player.Instance.estado = "Saltar";
+                Player.Instance.estado = EstadosJugador.Saltar;
                 break;
-            case TipoBloque.Agacharse:
+              case TipoBloque.Agacharse:
                 Debug.Log("Agachar");
-                Player.Instance.estado = "Agachar";
+                Player.Instance.estado = EstadosJugador.Idle;
                 break;
             case TipoBloque.Avanzar:
-                Player.Instance.estado = "Avanzar";
+                Player.Instance.estado = EstadosJugador.Avanzar;
                 //Player.Instance.AnimRun();
                 break;
             case TipoBloque.AvanzarNum:
                 Debug.Log("AvanzarNum");
-                Player.Instance.estado = "Avanzar";
+                Player.Instance.estado = EstadosJugador.Avanzar;
                 break;
             case TipoBloque.Disparar:
                 Debug.Log("Disparar");
-                Player.Instance.Disparar();
-                Player.Instance.estado = "Disparar";
+                Player.Instance.estado = EstadosJugador.Disparar;
                 break;
         }
     }
@@ -169,6 +168,7 @@ public class ObjectID_UI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     public void InstruccionCompleta()
     {
         instruccionCompletada = true;
+        Player.Instance.ResetTriggers();
     }
 }
 

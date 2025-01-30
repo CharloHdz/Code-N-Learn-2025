@@ -6,11 +6,10 @@ public class Proyectil : MonoBehaviour
 {
     public float velocidad;
     public float tiempoVida;
-    public Player Player;
     // Start is called before the first frame update
     void Start()
     {
-        Player = FindObjectOfType<Player>();
+        
     }
 
     // Update is called once per frame
@@ -21,21 +20,14 @@ public class Proyectil : MonoBehaviour
         //Destrucción del proyectil
         tiempoVida -= Time.deltaTime;
         if(tiempoVida <= 0){
-            Destroy(gameObject);
-        }
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.CompareTag("Enemigo o Muerte")){
-            transform.position = Player.Instance.SpawnPoint.position;
+            gameObject.SetActive(false);
         }
     }
 
     void OnCollisionEnter(Collision other)
     {
         if(other.gameObject.tag == "Enemigo o Muerte"){
-            transform.position = Player.Instance.SpawnPoint.position;
+            gameObject.SetActive(false);
         }
     }
 }

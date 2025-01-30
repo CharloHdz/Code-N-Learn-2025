@@ -92,7 +92,7 @@ public class Lienzo_UI : MonoBehaviour
 
             //Ejecutar accion cuando se hayan completado todas las instrucciones
             if(i == ObjectIDList.Count - 1){
-                Player.Instance.estado = "Idle";
+                Player.Instance.estado = EstadosJugador.Idle;
                 EstadoJuego = "Lectura Completada";
                 PlayBtnImage.sprite = PlayBtnState[0];
             }

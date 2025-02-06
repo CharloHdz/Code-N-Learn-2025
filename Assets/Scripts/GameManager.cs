@@ -83,7 +83,8 @@ public class GameManager : MonoBehaviour
             if (estadoJuego == EstadosJuego.PlayTutorial || estadoJuego == EstadosJuego.ResumeTutorial)
             {
                 CambiarEstado(EstadosJuego.Pause);
-            } else if (estadoJuego == EstadosJuego.Pause && EstadoAnterior == "PlayTutorial" || estadoJuego == EstadosJuego.Pause && EstadoAnterior == "ResumeTutorial")
+            } else if (estadoJuego == EstadosJuego.Pause && EstadoAnterior == "PlayTutorial" 
+            || estadoJuego == EstadosJuego.Pause && EstadoAnterior == "ResumeTutorial")
             {
                 CambiarEstado(EstadosJuego.ResumeTutorial);
             }
@@ -110,6 +111,7 @@ public class GameManager : MonoBehaviour
         CambiarEstado(EstadosJuego.Config);
     }
     public void B_RegresarMenu(){
+        SceneManager.LoadScene("Game");
         CambiarEstado(EstadosJuego.Menu);
     }
     public void B_Creditos(){

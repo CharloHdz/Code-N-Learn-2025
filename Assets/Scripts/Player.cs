@@ -85,25 +85,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Error"))
-        {
-            StopAllCoroutines();
-        }
-
-    }
-
-    void OnTriggerStay(Collider other)
-    {
-        if(other.CompareTag("Lava")){
-            StopAllCoroutines();
-            transform.position = SpawnPoint.position;
-            print("Lava");
-        }
-        
-    }
-
     public void Parar()
     {
         StopAllCoroutines();

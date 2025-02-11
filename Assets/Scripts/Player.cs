@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
 
     [Header("Estado del Jugador")]
     public EstadosJugador estado;
-
+    public string estadoAnterior;
     public bool PararTodo;
 
     private void Awake()
@@ -109,6 +109,11 @@ public class Player : MonoBehaviour
         animator.ResetTrigger("Jump");
         animator.ResetTrigger("Attack");
         animator.ResetTrigger("Idle");
+    }
+
+    public void GuardarEstadoJugador(){
+    //GUardar el estado anterio del jugador
+        estadoAnterior = estado.ToString();
     }
 
 }

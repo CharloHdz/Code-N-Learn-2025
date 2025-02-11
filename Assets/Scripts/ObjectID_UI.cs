@@ -137,7 +137,12 @@ public class ObjectID_UI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         switch (tipoBloque)
         {
             case TipoBloque.Saltar:
-                Player.Instance.PlayerRB.AddForce(transform.up * Player.Instance.fuerzaSalto, ForceMode2D.Impulse);
+                if(Player.Instance.estadoAnterior == "Saltar"){
+                    Player.Instance.PlayerRB.AddForce(transform.up * 10, ForceMode2D.Impulse);
+                } else {
+                    Player.Instance.PlayerRB.AddForce(transform.up * 5, ForceMode2D.Impulse);
+                }
+                
                 //Player.Instance.AnimJump();
                 Player.Instance.estado = EstadosJugador.Saltar;
                 break;

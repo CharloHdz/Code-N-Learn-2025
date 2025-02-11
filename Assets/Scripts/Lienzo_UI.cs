@@ -15,7 +15,6 @@ public class Lienzo_UI : MonoBehaviour
     [SerializeField] private GameObject PlayBtn;
     [SerializeField] private List<Sprite> PlayBtnState;
     private Image PlayBtnImage;
-
     //Singleton
     public static Lienzo_UI Instance { get; private set; }
 
@@ -83,6 +82,7 @@ public class Lienzo_UI : MonoBehaviour
             // Llamar a la instrucción de cada objeto si está dentro del panel
             if (IsObjectInsidePanel(ObjectIDList[i]))
             {
+                Player.Instance.GuardarEstadoJugador();
                 ObjectIDList[i].GetComponent<ObjectID_UI>().Instruction();
                 ObjectIDList[i].GetComponent<ObjectID_UI>().InstruccionCompleta();
             }

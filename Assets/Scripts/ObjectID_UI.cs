@@ -4,7 +4,8 @@ using TMPro;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
-using NUnit.Framework;  // Añadir la referencia correcta para Image
+using NUnit.Framework;
+using Unity.VisualScripting;  // Añadir la referencia correcta para Image
 
 public class ObjectID_UI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
@@ -98,6 +99,7 @@ public class ObjectID_UI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        // Cambiar el parent del objeto al canvas
         if (deleteArea.IsObjectInsidePanel(gameObject) && firstMove == false)
         {
             blockCopy = Instantiate(gameObject, parentTransform); // Crear una copia del objeto
@@ -124,6 +126,13 @@ public class ObjectID_UI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             Destroy(gameObject);
             deleteArea.ClosePanel();
         }
+
+        if (Lienzo_UI.Instance.IsObjectInsidePanel(gameObject))
+        {
+            // Si el objeto está dentro del panel, acomodar el objeto en medio del liezno (En medio en pos Y)
+            AcomodarObjeto();
+            Lienzo_UI.Instance.MostrarPreview();
+        }
     }
 
     public void ResetInstruction()
@@ -138,7 +147,7 @@ public class ObjectID_UI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         {
             case TipoBloque.Saltar:
                 if(Player.Instance.estadoAnterior == "Saltar"){
-                    Player.Instance.PlayerRB.AddForce(transform.up * 10, ForceMode2D.Impulse);
+                    Player.Instance.PlayerRB.AddForce(transform.up * 5, ForceMode2D.Impulse);
                 } else {
                     Player.Instance.PlayerRB.AddForce(transform.up * 5, ForceMode2D.Impulse);
                 }
@@ -174,6 +183,12 @@ public class ObjectID_UI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     {
         instruccionCompletada = true;
         Player.Instance.ResetTriggers();
+    }
+
+    public void AcomodarObjeto()
+    {
+        //Set parent de el lienzo
+        rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, -185);
     }
 }
 

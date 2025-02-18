@@ -15,6 +15,11 @@ public class Lienzo_UI : MonoBehaviour
     [SerializeField] private GameObject PlayBtn;
     [SerializeField] private List<Sprite> PlayBtnState;
     private Image PlayBtnImage;
+
+    [Header("Preview For Player")]
+    [SerializeField] private List<GameObject> PreviewForPlayer;
+    private float PreviewPosX;
+    public bool Salto;
     //Singleton
     public static Lienzo_UI Instance { get; private set; }
 
@@ -68,6 +73,7 @@ public class Lienzo_UI : MonoBehaviour
     public void Play()
     {
         StartCoroutine(PlayGame());
+        RestartPreviewPos();
     }
 
     public string EstadoJuego;
@@ -111,6 +117,50 @@ public class Lienzo_UI : MonoBehaviour
 
         // Verificar si el punto está dentro del RectTransform del panel
         return RectTransformUtility.RectangleContainsScreenPoint(panelRectTransform, objRectTransform.position, canvas.worldCamera);
+    }
+
+    public void MostrarPreview(){
+        //Reinicia valores y borra los previews anteriores
+        PreviewPosX = 0;
+        foreach (GameObject preview in GameObject.FindGameObjectsWithTag("Preview"))
+        {
+            Destroy(preview);
+        }
+
+        for (int i = 0; i < ObjectIDList.Count; i++)
+        {
+            switch (ObjectIDList[i].GetComponent<ObjectID_UI>().tipoBloque)
+            {
+                //Instancia el preview del bloque en la posicióen en el que estará el jugador
+                case TipoBloque.Avanzar:
+                    Salto = false;
+                    PreviewPosX += 2; // Corregido: += en lugar de =+
+                    Vector3 previewPosition = Player.Instance.SpawnPoint.position + new Vector3(PreviewPosX, 0, 0); // Ajustado para sumar correctamente
+                    Instantiate(PreviewForPlayer[0], previewPosition, Quaternion.identity);
+                    break;
+                case TipoBloque.Saltar:
+                    Salto = true;
+                    PreviewPosX += 2; // Corregido: += en lugar de =+
+                    Vector3 previewPosition1 = Player.Instance.SpawnPoint.position + new Vector3(PreviewPosX, 0, 0); // Ajustado para sumar correctamente
+                    Instantiate(PreviewForPlayer[1], previewPosition1, Quaternion.identity);
+                    break;
+                case TipoBloque.Disparar:
+                    Salto = false;
+                    break;
+            }
+        }
+    }
+
+    public void RestartPreviewPos(){
+        PreviewPosX = 0;
+    }
+
+    public void EliminarBloquesEnLienzo(){
+        for (int i = 0; i < ObjectIDList.Count; i++)
+        {
+            Destroy(ObjectIDList[i]);
+        }
+        ObjectIDList.Clear();
     }
 
 }

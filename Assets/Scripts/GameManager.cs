@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Diagnostics;
 
 public class GameManager : MonoBehaviour
 {
@@ -26,10 +27,14 @@ public class GameManager : MonoBehaviour
     [Header ("Elementos Tutorial")]
     public GameObject[] TutorialElements;
     public GameObject DialogueGlobe;
+    public int MetaTutorial;
+    public Transform InicioNivel2;
+    public Transform InicioNivel3;
 
     [Header("Juego")]
-    public GameObject[] Niveles;
+    public GameObject[] NivelesJuego;
     public Niveles NivelActual;
+    public int MetaNivel;
 
     void Awake()
     {
@@ -156,12 +161,14 @@ public class GameManager : MonoBehaviour
                 break;
             case EstadosJuego.PlayGame:
                 GamePanels[2].SetActive(true);
+                Lienzo_UI.Instance.RestartPreviewPos();
                 break;
             case EstadosJuego.Pause:
                 GamePanels[3].SetActive(true);
                 break;
             case EstadosJuego.ResumeGame:
                 GamePanels[2].SetActive(true);
+                Lienzo_UI.Instance.RestartPreviewPos();
                 break;
             case EstadosJuego.Config:
                 GamePanels[4].SetActive(true);
@@ -188,8 +195,25 @@ public class GameManager : MonoBehaviour
         }
     }
 
-}
+    public void MetaAlcanzadaTutorial(){
+        MetaTutorial++;
+        switch (MetaTutorial)
+        {
+            case 1:
+                Player.Instance.SpawnPoint.transform.position = InicioNivel2.position;
+                Player.Instance.Parar();
+                //Lienzo_UI.Instance.EliminarBloquesEnLienzo();
+                break;
+            case 2:
+                Player.Instance.SpawnPoint.transform.position = InicioNivel3.position;
+                break;
+            case 3:
+                DialogueGlobe.GetComponent<TextMeshProUGUI>().text = "¡Muy bien! Ahora vamos a disparar.";
+                break;
+        }
+    }
 
+}
 // Enum para representar los diferentes estados del juego
 public enum EstadosJuego
 {

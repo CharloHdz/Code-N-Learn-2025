@@ -116,6 +116,15 @@ public class Player : MonoBehaviour
         estadoAnterior = estado.ToString();
     }
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("MetaTutorial"))
+        {
+            GameManager.instance.MetaAlcanzadaTutorial();
+            Destroy(other.gameObject);
+        }
+    }
+
 }
 
 public enum EstadosJugador

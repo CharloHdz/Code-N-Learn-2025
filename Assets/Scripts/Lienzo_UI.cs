@@ -7,22 +7,30 @@ using System.Linq;
 
 public class Lienzo_UI : MonoBehaviour
 {
+    // =================== VARIABLES ===================
+    [Header("General Settings")]
     public List<GameObject> ObjectIDList;  // Lista de objetos UI
     public RectTransform panelRectTransform;  // Referencia al área del lienzo (Panel)
     public Canvas canvas;  // Referencia al Canvas, necesario para calcular las posiciones en pantalla
     public Player player;
-
+    
+    [Header("Play Button Settings")]
     [SerializeField] private GameObject PlayBtn;
     [SerializeField] private List<Sprite> PlayBtnState;
     private Image PlayBtnImage;
+    public string EstadoJuego;
 
     [Header("Preview For Player")]
-    [SerializeField] private List<GameObject> PreviewForPlayer;
+    [SerializeField] private GameObject[] PreviewWalk;
+    [SerializeField] private GameObject[] PreviewJump;
+    [SerializeField] private GameObject[] PreviewShoot;
     private float PreviewPosX;
     public bool Salto;
-    //Singleton
+
+    // Singleton
     public static Lienzo_UI Instance { get; private set; }
 
+    // =================== SINGLETON ===================
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -35,54 +43,51 @@ public class Lienzo_UI : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
+    // =================== MÉTODOS DE UNITY ===================
     void Start()
     {
         player = FindObjectOfType<Player>();
         ObjectIDList = new List<GameObject>();  // Inicializamos la lista de objetos
         PlayBtnImage = PlayBtn.GetComponent<Image>();
+
+        //Object Pool de los previews
+        InicializarPreviews(PreviewWalk);
+        InicializarPreviews(PreviewJump);
+        InicializarPreviews(PreviewShoot);
     }
 
-    // Update is called once per frame
     void Update()
     {
-
-        //Revisar si el objeto está dentro del panel
-        for (int i = 0; i < ObjectIDList.Count; i++)
-        {
-            if (!IsObjectInsidePanel(ObjectIDList[i]))
-            {
-                ObjectIDList.RemoveAt(i);
-            }
-        }
-
-        //Ordena la lista de objetos por su altura
+        RevisarObjetosDentroDelPanel();
         Sort();
-
     }
-    // Método para correr el script que contiene el lienzo 
 
-    public void ResetBlock(){
-        //player.transform.position = player.InitPos;
-        for (int i = 0; i < ObjectIDList.Count; i++)
+    // =================== MÉTODOS PERSONALIZADOS ===================
+    
+    // ---- Inicialización ----
+    private void InicializarPreviews(GameObject[] previews)
+    {
+        for (int i = 0; i < previews.Length; i++)
         {
-            ObjectIDList[i].GetComponent<ObjectID_UI>().InstruccionCompleta();
+            previews[i] = Instantiate(previews[i], Vector3.zero, Quaternion.identity);
+            previews[i].SetActive(false);
         }
     }
 
+    // ---- Funcionalidades de Juego ----
     public void Play()
     {
         StartCoroutine(PlayGame());
         RestartPreviewPos();
     }
 
-    public string EstadoJuego;
     public IEnumerator PlayGame()
     {
         EstadoJuego = "Leyendo";
         PlayBtnImage.sprite = PlayBtnState[1];
         player.transform.position = Player.Instance.SpawnPoint.position;
         Player.Instance.posX = player.transform.position.x;
+
         for (int i = 0; i < ObjectIDList.Count; i++)
         {
             // Llamar a la instrucción de cada objeto si está dentro del panel
@@ -96,8 +101,9 @@ public class Lienzo_UI : MonoBehaviour
             // Esperar 1 segundo antes de pasar al siguiente
             yield return new WaitForSeconds(1f);
 
-            //Ejecutar accion cuando se hayan completado todas las instrucciones
-            if(i == ObjectIDList.Count - 1){
+            //Ejecutar acción cuando se hayan completado todas las instrucciones
+            if (i == ObjectIDList.Count - 1)
+            {
                 Player.Instance.estado = EstadosJugador.Idle;
                 EstadoJuego = "Lectura Completada";
                 PlayBtnImage.sprite = PlayBtnState[0];
@@ -105,11 +111,93 @@ public class Lienzo_UI : MonoBehaviour
         }
     }
 
-    void Sort(){
+    public void ResetBlock()
+    {
+        for (int i = 0; i < ObjectIDList.Count; i++)
+        {
+            ObjectIDList[i].GetComponent<ObjectID_UI>().InstruccionCompleta();
+        }
+    }
+
+    public IEnumerator EliminarBloquesEnLienzo(float time)
+    {
+        yield return new WaitForSeconds(time);
+        for (int i = 0; i < ObjectIDList.Count; i++)
+        {
+            Destroy(ObjectIDList[i]);
+        }
+        ObjectIDList.Clear();
+    }
+
+    // ---- Previews ----
+    public void MostrarPreview()
+    {
+        // Reinicia valores y borra los previews anteriores
+        PreviewPosX = 0;
+        foreach (GameObject preview in GameObject.FindGameObjectsWithTag("Preview"))
+        {
+            preview.SetActive(false);
+        }
+
+        for (int i = 0; i < ObjectIDList.Count; i++)
+        {
+            switch (ObjectIDList[i].GetComponent<ObjectID_UI>().tipoBloque)
+            {
+                case TipoBloque.Avanzar:
+                    Salto = false;
+                    PreviewPosX += 2;
+                    Vector3 previewPosition = Player.Instance.SpawnPoint.position + new Vector3(PreviewPosX, 0, 0);
+                    LlamarPreview("Avanzar", previewPosition);
+                    break;
+
+                case TipoBloque.Saltar:
+                    Salto = true;
+                    PreviewPosX += 2;
+                    Vector3 previewPosition1 = Player.Instance.SpawnPoint.position + new Vector3(PreviewPosX, 0, 0);
+                    LlamarPreview("Saltar", previewPosition1);
+                    break;
+
+                case TipoBloque.Disparar:
+                    Salto = false;
+                    break;
+            }
+        }
+    }
+
+    public void LlamarPreview(string tipoPreview, Vector3 Pos)
+    {
+        GameObject[] previewArray = tipoPreview switch
+        {
+            "Avanzar" => PreviewWalk,
+            "Saltar" => PreviewJump,
+            "Disparar" => PreviewShoot,
+            _ => null
+        };
+
+        if (previewArray == null) return;
+
+        foreach (var preview in previewArray)
+        {
+            if (!preview.activeInHierarchy)
+            {
+                preview.transform.position = Pos;
+                preview.SetActive(true);
+                break;
+            }
+        }
+    }
+
+    public void RestartPreviewPos()
+    {
+        PreviewPosX = 0;
+    }
+
+    // ---- Utilidades ----
+    void Sort()
+    {
         ObjectIDList = ObjectIDList.OrderByDescending(obj => obj.transform.position.x * -1).ToList();
     }
 
-    // Método para verificar si el objeto está dentro del área del panel
     public bool IsObjectInsidePanel(GameObject obj)
     {
         RectTransform objRectTransform = obj.GetComponent<RectTransform>();
@@ -119,50 +207,17 @@ public class Lienzo_UI : MonoBehaviour
         return RectTransformUtility.RectangleContainsScreenPoint(panelRectTransform, objRectTransform.position, canvas.worldCamera);
     }
 
-    public void MostrarPreview(){
-        //Reinicia valores y borra los previews anteriores
-        PreviewPosX = 0;
-        foreach (GameObject preview in GameObject.FindGameObjectsWithTag("Preview"))
-        {
-            Destroy(preview);
-        }
-
+    private void RevisarObjetosDentroDelPanel()
+    {
         for (int i = 0; i < ObjectIDList.Count; i++)
         {
-            switch (ObjectIDList[i].GetComponent<ObjectID_UI>().tipoBloque)
+            if (!IsObjectInsidePanel(ObjectIDList[i]))
             {
-                //Instancia el preview del bloque en la posicióen en el que estará el jugador
-                case TipoBloque.Avanzar:
-                    Salto = false;
-                    PreviewPosX += 2; // Corregido: += en lugar de =+
-                    Vector3 previewPosition = Player.Instance.SpawnPoint.position + new Vector3(PreviewPosX, 0, 0); // Ajustado para sumar correctamente
-                    Instantiate(PreviewForPlayer[0], previewPosition, Quaternion.identity);
-                    break;
-                case TipoBloque.Saltar:
-                    Salto = true;
-                    PreviewPosX += 2; // Corregido: += en lugar de =+
-                    Vector3 previewPosition1 = Player.Instance.SpawnPoint.position + new Vector3(PreviewPosX, 0, 0); // Ajustado para sumar correctamente
-                    Instantiate(PreviewForPlayer[1], previewPosition1, Quaternion.identity);
-                    break;
-                case TipoBloque.Disparar:
-                    Salto = false;
-                    break;
+                ObjectIDList.RemoveAt(i);
             }
         }
     }
-
-    public void RestartPreviewPos(){
-        PreviewPosX = 0;
-    }
-
-    public void EliminarBloquesEnLienzo(){
-        for (int i = 0; i < ObjectIDList.Count; i++)
-        {
-            Destroy(ObjectIDList[i]);
-        }
-        ObjectIDList.Clear();
-    }
-
 }
+
 
 

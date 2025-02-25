@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4391760912754488895}
   - component: {fileID: 5191558471534620953}
   - component: {fileID: 6151246060668592496}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sensor_Abajo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,7 +147,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fd7a698a6b9813498574d0c5d7b4cf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Detecta: 0
 --- !u!1 &7792024443452404259
 GameObject:
   m_ObjectHideFlags: 0
@@ -161,7 +160,7 @@ GameObject:
   - component: {fileID: 4574635343971200196}
   - component: {fileID: 8607279368790038799}
   - component: {fileID: -2397265268265503595}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Disparar
   m_TagString: Preview
   m_Icon: {fileID: 0}

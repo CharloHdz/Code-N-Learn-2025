@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -2350920960042353893}
   - component: {fileID: -2082031222154975219}
   - component: {fileID: -8620447767091226532}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Saltar
   m_TagString: Preview
   m_Icon: {fileID: 0}
@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: 2314423760582559993}
   - component: {fileID: 6309810103278392460}
   - component: {fileID: 4171369903497399715}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -343,4 +343,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fd7a698a6b9813498574d0c5d7b4cf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Detecta: 0

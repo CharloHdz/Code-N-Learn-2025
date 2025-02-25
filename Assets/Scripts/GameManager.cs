@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     public int MetaTutorial;
     public Transform InicioNivel2;
     public Transform InicioNivel3;
+    [SerializeField] private float maxDistanceTutorial;
 
     [Header("Juego")]
     public GameObject[] NivelesJuego;
@@ -202,7 +203,8 @@ public class GameManager : MonoBehaviour
             case 1:
                 Player.Instance.SpawnPoint.transform.position = InicioNivel2.position;
                 Player.Instance.Parar();
-                //Lienzo_UI.Instance.EliminarBloquesEnLienzo();
+                StartCoroutine(Lienzo_UI.Instance.EliminarBloquesEnLienzo(0.5f));
+                maxDistanceTutorial = InicioNivel2.position.x;
                 break;
             case 2:
                 Player.Instance.SpawnPoint.transform.position = InicioNivel3.position;

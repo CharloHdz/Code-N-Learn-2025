@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 985199326124903850}
   - component: {fileID: 4564269952687265353}
   - component: {fileID: 2037533069773915708}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sensor_Abajo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,7 +175,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fd7a698a6b9813498574d0c5d7b4cf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Detecta: 0
 --- !u!1 &9007391441702868402
 GameObject:
   m_ObjectHideFlags: 0
@@ -189,7 +188,7 @@ GameObject:
   - component: {fileID: 7067822521084450672}
   - component: {fileID: 41966645745190452}
   - component: {fileID: -2098074734654885061}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Avanzar
   m_TagString: Preview
   m_Icon: {fileID: 0}

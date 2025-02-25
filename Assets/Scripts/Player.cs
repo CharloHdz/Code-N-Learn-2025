@@ -123,6 +123,11 @@ public class Player : MonoBehaviour
             GameManager.instance.MetaAlcanzadaTutorial();
             Destroy(other.gameObject);
         }
+
+        if(other.gameObject.CompareTag("Muerte")){
+            transform.position = SpawnPoint.position;
+            Lienzo_UI.Instance.EliminarBloquesEnLienzo(0.5f);
+        }
     }
 
 }

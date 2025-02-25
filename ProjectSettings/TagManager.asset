@@ -8,6 +8,8 @@ TagManager:
   - Floor
   - Meta
   - MetaTutorial
+  - Pared
+  - Muerte
   layers:
   - Default
   - TransparentFX

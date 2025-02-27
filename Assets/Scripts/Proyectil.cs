@@ -6,6 +6,10 @@ public class Proyectil : MonoBehaviour
 {
     public float velocidad;
     public float tiempoVida;
+    void OnEnable()
+    {
+        tiempoVida = 2;
+    }
     // Start is called before the first frame update
     void Start()
     {

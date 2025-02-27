@@ -10,6 +10,8 @@ TagManager:
   - MetaTutorial
   - Pared
   - Muerte
+  - Enemy
+  - Bullet
   layers:
   - Default
   - TransparentFX

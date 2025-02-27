@@ -170,6 +170,7 @@ public class ObjectID_UI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             case TipoBloque.Disparar:
                 Debug.Log("Disparar");
                 Player.Instance.estado = EstadosJugador.Disparar;
+                Player.Instance.StartCoroutine(Player.Instance.Disparar(0.8f));
                 break;
         }
     }

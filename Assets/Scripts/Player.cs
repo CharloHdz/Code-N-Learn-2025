@@ -91,8 +91,8 @@ public class Player : MonoBehaviour
         //Limpiar corutinas
     }
 
-    public void Disparar()
-    {
+    public IEnumerator Disparar(float sec){
+        yield return new WaitForSeconds(sec);
         for (int i = 0; i < Proyectiles.Length; i++)
         {
             if (!Proyectiles[i].activeInHierarchy)
@@ -116,6 +116,11 @@ public class Player : MonoBehaviour
         estadoAnterior = estado.ToString();
     }
 
+    public void Muerte(){
+        transform.position = SpawnPoint.position;
+        Lienzo_UI.Instance.StartCoroutine(Lienzo_UI.Instance.EliminarBloquesEnLienzo(0.5f));
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("MetaTutorial"))
@@ -125,8 +130,15 @@ public class Player : MonoBehaviour
         }
 
         if(other.gameObject.CompareTag("Muerte")){
-            transform.position = SpawnPoint.position;
-            Lienzo_UI.Instance.EliminarBloquesEnLienzo(0.5f);
+            Muerte();
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            Muerte();
         }
     }
 

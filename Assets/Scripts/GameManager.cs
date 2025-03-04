@@ -156,6 +156,7 @@ public class GameManager : MonoBehaviour
                 break;
             case EstadosJuego.PlayTutorial:
                 GamePanels[1].SetActive(true);
+                GamePanels[2].SetActive(true);
                 break;
             case EstadosJuego.ResumeTutorial:
                 GamePanels[1].SetActive(true);

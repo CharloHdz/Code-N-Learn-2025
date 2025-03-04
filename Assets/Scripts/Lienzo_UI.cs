@@ -83,32 +83,45 @@ public class Lienzo_UI : MonoBehaviour
 
     public IEnumerator PlayGame()
     {
-        EstadoJuego = "Leyendo";
-        PlayBtnImage.sprite = PlayBtnState[1];
-        player.transform.position = Player.Instance.SpawnPoint.position;
-        Player.Instance.posX = player.transform.position.x;
-
-        for (int i = 0; i < ObjectIDList.Count; i++)
+        switch(Player.Instance.KillSwitch)
         {
-            // Llamar a la instrucción de cada objeto si está dentro del panel
-            if (IsObjectInsidePanel(ObjectIDList[i]))
-            {
-                Player.Instance.GuardarEstadoJugador();
-                ObjectIDList[i].GetComponent<ObjectID_UI>().Instruction();
-                ObjectIDList[i].GetComponent<ObjectID_UI>().InstruccionCompleta();
-            }
+            case true:
+                print("PERRAAAAAA");
+                break;
+            case false:
+                EstadoJuego = "Leyendo";
+                PlayBtnImage.sprite = PlayBtnState[1];
+                player.transform.position = Player.Instance.SpawnPoint.position;
+                Player.Instance.posX = player.transform.position.x;
 
-            // Esperar 1 segundo antes de pasar al siguiente
-            yield return new WaitForSeconds(1f);
+                for (int i = 0; i < ObjectIDList.Count; i++)
+                {
+                    // Llamar a la instrucción de cada objeto si está dentro del panel
+                    if (IsObjectInsidePanel(ObjectIDList[i]))
+                    {
+                        Player.Instance.GuardarEstadoJugador();
+                        ObjectIDList[i].GetComponent<ObjectID_UI>().Instruction();
+                        ObjectIDList[i].GetComponent<ObjectID_UI>().InstruccionCompleta();
+                    }
 
-            //Ejecutar acción cuando se hayan completado todas las instrucciones
-            if (i == ObjectIDList.Count - 1)
-            {
-                Player.Instance.estado = EstadosJugador.Idle;
-                EstadoJuego = "Lectura Completada";
-                PlayBtnImage.sprite = PlayBtnState[0];
-            }
+                    // Esperar 1 segundo antes de pasar al siguiente
+                    yield return new WaitForSeconds(1f);
+
+                    //Ejecutar acción cuando se hayan completado todas las instrucciones
+                    if (i == ObjectIDList.Count - 1)
+                    {
+                        Player.Instance.estado = EstadosJugador.Idle;
+                        EstadoJuego = "Lectura Completada";
+                        PlayBtnImage.sprite = PlayBtnState[0];
+                    }
+                }
+                break;
         }
+
+    }
+
+    public void Transform(){
+        player.transform.position = Player.Instance.SpawnPoint.position;
     }
 
     public void ResetBlock()

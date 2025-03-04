@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public float velocidad;
     public float posX;
     public float fuerzaSalto;
+    public bool KillSwitch;
 
     [Header("Componentes")]
     public Rigidbody2D PlayerRB;
@@ -54,24 +55,30 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-
-        //Cambia el estado del jugador
-        switch (estado)
+        if (KillSwitch)
         {
-            case EstadosJugador.Idle:
-                animator.SetInteger("Estado", 0);
-                break;
-            case EstadosJugador.Avanzar:
-                posX = transform.position.x + velocidad * Time.deltaTime;
-                animator.SetInteger("Estado", 1);
-                break;
-            case EstadosJugador.Saltar:
-                posX = transform.position.x + velocidad * Time.deltaTime;
-                animator.SetInteger("Estado", 2);
-                break;
-            case EstadosJugador.Disparar:
-                animator.SetInteger("Estado", 3);
-                break;
+            estado = EstadosJugador.Idle;
+            Lienzo_UI.Instance.Transform();
+        }
+        else {
+            //Cambia el estado del jugador
+            switch (estado)
+            {
+                case EstadosJugador.Idle:
+                    animator.SetInteger("Estado", 0);
+                    break;
+                case EstadosJugador.Avanzar:
+                    posX = transform.position.x + velocidad * Time.deltaTime;
+                    animator.SetInteger("Estado", 1);
+                    break;
+                case EstadosJugador.Saltar:
+                    posX = transform.position.x + velocidad * Time.deltaTime;
+                    animator.SetInteger("Estado", 2);
+                    break;
+                case EstadosJugador.Disparar:
+                    animator.SetInteger("Estado", 3);
+                    break;
+            }
         }
 
         if(PararTodo){
@@ -117,8 +124,15 @@ public class Player : MonoBehaviour
     }
 
     public void Muerte(){
-        transform.position = SpawnPoint.position;
+        KillSwitch = true;
+        StartCoroutine(DisableKillSwitch(1f));
         Lienzo_UI.Instance.StartCoroutine(Lienzo_UI.Instance.EliminarBloquesEnLienzo(0.5f));
+    }
+
+    IEnumerator DisableKillSwitch(float time)
+    {
+        yield return new WaitForSeconds(time);
+        KillSwitch = false;
     }
 
     void OnTriggerEnter2D(Collider2D other)

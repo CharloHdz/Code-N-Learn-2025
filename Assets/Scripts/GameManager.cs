@@ -208,10 +208,9 @@ public class GameManager : MonoBehaviour
                 maxDistanceTutorial = InicioNivel2.position.x;
                 break;
             case 2:
-                Player.Instance.SpawnPoint.transform.position = InicioNivel3.position;
-                break;
-            case 3:
-                DialogueGlobe.GetComponent<TextMeshProUGUI>().text = "¡Muy bien! Ahora vamos a disparar.";
+                print("Tutorial Superado");
+                TutorialSuperado = true;
+                SceneManager.LoadScene("Game");
                 break;
         }
     }

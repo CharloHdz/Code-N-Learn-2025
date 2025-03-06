@@ -132,6 +132,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void B_OmitirTutorial(){
+        TutorialSuperado = true;
+        CambiarEstado(EstadosJuego.PlayGame);
+    }
+
 
     /*NOTA: Número de lista de Paneles de Juego
     [0]: Menu Panel

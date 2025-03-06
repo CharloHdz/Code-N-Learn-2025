@@ -8,4 +8,5 @@ public class Dialogos : ScriptableObject
     public string dialogo;
 
     public Vector2 Posicion;
+    public bool SetAnim;
 }

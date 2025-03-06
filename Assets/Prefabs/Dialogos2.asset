@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31abd01a4dacd814b93a4eab7a60a5b5, type: 3}
   m_Name: Dialogos2
   m_EditorClassIdentifier: 
-  dialogo: Chinga Tu Madre
+  dialogo: "En este juego, aprender\xE1s sobre l\xF3gica de programaci\xF3n de una
+    forma l\xFAdica (chida pues)"
   Posicion: {x: 103, y: 96.5}

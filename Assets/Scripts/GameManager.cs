@@ -220,6 +220,28 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void CambiarNivel(Niveles nuevoNivel){
+        NivelActual = nuevoNivel;
+        switch (NivelActual)
+        {
+            case Niveles.N1:
+                MetaNivel = 1;
+                break;
+            case Niveles.N2:
+                MetaNivel = 2;
+                break;
+            case Niveles.N3:
+                MetaNivel = 3;
+                break;
+            case Niveles.N4:
+                MetaNivel = 4;
+                break;
+            case Niveles.N5:
+                MetaNivel = 5;
+                break;
+        }
+    }
+
 }
 // Enum para representar los diferentes estados del juego
 public enum EstadosJuego

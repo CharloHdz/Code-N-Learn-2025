@@ -22,5 +22,11 @@ public class ProgressBar : MonoBehaviour
     void Update()
     {
             progressBar.fillAmount = playerGO.transform.position.x / maxDistance;
+
+            switch (GameManager.instance.nivelNum){
+                case GameManager.Niveles.Tutorial:
+                    finishGO = S_Tutorial.Instance.FinishLevelPos;
+                break;
+            }
     }
 }

@@ -23,6 +23,17 @@ public class GameManager : MonoBehaviour
     public bool TutorialSuperado = true;
     public Idiomas IdiomaActual;
     public Resoluciones ResolucionActual;
+    [Header ("Niveles")]
+    public Niveles nivelNum;
+    public enum Niveles
+    {
+        Tutorial,
+        N1,
+        N2,
+        N3,
+        N4,
+        N5
+    }
 
     [Header ("Elementos Tutorial")]
     public GameObject[] TutorialElements;

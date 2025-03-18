@@ -32,11 +32,6 @@ public class GameManager : MonoBehaviour
     public Transform InicioNivel3;
     [SerializeField] private float maxDistanceTutorial;
 
-    [Header("Juego")]
-    public GameObject[] NivelesJuego;
-    public Niveles NivelActual;
-    public int MetaNivel;
-
     void Awake()
     {
         if (instance == null)
@@ -57,20 +52,6 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         //Pausa del Juego
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -95,14 +76,30 @@ public class GameManager : MonoBehaviour
                 CambiarEstado(EstadosJuego.ResumeTutorial);
             }
         }
+
+        #region Comandos
+        if(Input.GetKeyDown(KeyCode.N)){
+            if(estadoJuego == EstadosJuego.PlayGame || estadoJuego == EstadosJuego.ResumeGame
+            || estadoJuego == EstadosJuego.PlayTutorial || estadoJuego == EstadosJuego.ResumeTutorial){
+                //Si esta abierto el panel de niveles, cerrarlo y viceversa
+                if(GamePanels[7].activeSelf){
+                    GamePanels[7].SetActive(false);
+                }else{
+                    GamePanels[7].SetActive(true);
+                }
+            }
+        }
+        #endregion
     }
 
-
+#region Botones de Juego
     //Acciones de Botones
     public void B_Jugar(){
         if(!TutorialSuperado){
+            SceneManager.LoadScene("Tutorial");
             CambiarEstado(EstadosJuego.PlayTutorial);
         }else{
+            SceneManager.LoadScene("Nivel1");
             CambiarEstado(EstadosJuego.PlayGame);
         }
     }
@@ -117,7 +114,7 @@ public class GameManager : MonoBehaviour
         CambiarEstado(EstadosJuego.Config);
     }
     public void B_RegresarMenu(){
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("Menu");
         CambiarEstado(EstadosJuego.Menu);
     }
     public void B_Creditos(){
@@ -136,7 +133,7 @@ public class GameManager : MonoBehaviour
         TutorialSuperado = true;
         CambiarEstado(EstadosJuego.PlayGame);
     }
-
+#endregion
 
     /*NOTA: Número de lista de Paneles de Juego
     [0]: Menu Panel
@@ -146,6 +143,7 @@ public class GameManager : MonoBehaviour
     [4]: Config Panel
     [5]: Game Over Panel
     [6]: Creditos Panel
+    [7]: Selector de Niveles
     */
 
     //Cambiar de estado de juego y guardar el estado anterior
@@ -216,28 +214,6 @@ public class GameManager : MonoBehaviour
                 print("Tutorial Superado");
                 TutorialSuperado = true;
                 SceneManager.LoadScene("Game");
-                break;
-        }
-    }
-
-    public void CambiarNivel(Niveles nuevoNivel){
-        NivelActual = nuevoNivel;
-        switch (NivelActual)
-        {
-            case Niveles.N1:
-                MetaNivel = 1;
-                break;
-            case Niveles.N2:
-                MetaNivel = 2;
-                break;
-            case Niveles.N3:
-                MetaNivel = 3;
-                break;
-            case Niveles.N4:
-                MetaNivel = 4;
-                break;
-            case Niveles.N5:
-                MetaNivel = 5;
                 break;
         }
     }

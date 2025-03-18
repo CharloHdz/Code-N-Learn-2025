@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,6 +28,10 @@ public class Player : MonoBehaviour
     public EstadosJugador estado;
     public string estadoAnterior;
     public bool PararTodo;
+
+    [Header ("Versión de Niveles")]
+    public VersionPlayer versionPlayer;
+    public enum VersionPlayer{T, N1, N2, N3, N4, N5}
 
     private void Awake()
     {
@@ -90,6 +95,12 @@ public class Player : MonoBehaviour
         if(PlayerRB.linearVelocity.y > 30){
             PlayerRB.linearVelocity = new Vector2(PlayerRB.linearVelocity.x, 30);
         }
+
+        #region Versiones del Jugador por Niveles
+        switch(versionPlayer){
+            
+        }
+        #endregion
     }
 
     public void Parar()

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -150,7 +151,7 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.CompareTag("MetaTutorial"))
         {
-            GameManager.instance.MetaAlcanzadaTutorial();
+            S_Tutorial.Instance.MetaAlcanzadaTutorial();
             Destroy(other.gameObject);
         }
 

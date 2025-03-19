@@ -21,9 +21,9 @@ public class Lienzo_UI : MonoBehaviour
     public string EstadoJuego;
 
     [Header("Preview For Player")]
-    [SerializeField] private GameObject[] PreviewWalk;
-    [SerializeField] private GameObject[] PreviewJump;
-    [SerializeField] private GameObject[] PreviewShoot;
+    public GameObject[] PreviewWalk;
+    public GameObject[] PreviewJump;
+    public GameObject[] PreviewShoot;
     private float PreviewPosX;
     public bool Salto;
 
@@ -50,10 +50,6 @@ public class Lienzo_UI : MonoBehaviour
         ObjectIDList = new List<GameObject>();  // Inicializamos la lista de objetos
         PlayBtnImage = PlayBtn.GetComponent<Image>();
 
-        //Object Pool de los previews
-        InicializarPreviews(PreviewWalk);
-        InicializarPreviews(PreviewJump);
-        InicializarPreviews(PreviewShoot);
     }
 
     void Update()
@@ -65,7 +61,7 @@ public class Lienzo_UI : MonoBehaviour
     // =================== MÉTODOS PERSONALIZADOS ===================
     
     // ---- Inicialización ----
-    private void InicializarPreviews(GameObject[] previews)
+    public void InicializarPreviews(GameObject[] previews)
     {
         for (int i = 0; i < previews.Length; i++)
         {

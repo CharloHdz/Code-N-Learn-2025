@@ -20,7 +20,7 @@ public class ObjectID_UI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     [SerializeField] private List<Sprite> TipeBlockImage;
     [SerializeField] private RectTransform BlockRectTransform;
     private Vector2 originalPosition;
-    private DeleteArea_UI deleteArea;
+    [SerializeField] private DeleteArea_UI deleteArea;
     [SerializeField] private GameObject blockCopy;
 
     [Header("Extras")]

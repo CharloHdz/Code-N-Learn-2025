@@ -35,14 +35,6 @@ public class GameManager : MonoBehaviour
         N5
     }
 
-    [Header ("Elementos Tutorial")]
-    public GameObject[] TutorialElements;
-    public GameObject DialogueGlobe;
-    public int MetaTutorial;
-    public Transform InicioNivel2;
-    public Transform InicioNivel3;
-    [SerializeField] private float maxDistanceTutorial;
-
     void Awake()
     {
         if (instance == null)
@@ -143,6 +135,7 @@ public class GameManager : MonoBehaviour
     public void B_OmitirTutorial(){
         TutorialSuperado = true;
         CambiarEstado(EstadosJuego.PlayGame);
+        SceneManager.LoadScene("Nivel1");
     }
 #endregion
 
@@ -210,25 +203,6 @@ public class GameManager : MonoBehaviour
             panel.SetActive(false);
         }
     }
-
-    public void MetaAlcanzadaTutorial(){
-        MetaTutorial++;
-        switch (MetaTutorial)
-        {
-            case 1:
-                Player.Instance.SpawnPoint.transform.position = InicioNivel2.position;
-                Player.Instance.Parar();
-                StartCoroutine(Lienzo_UI.Instance.EliminarBloquesEnLienzo(0.5f));
-                maxDistanceTutorial = InicioNivel2.position.x;
-                break;
-            case 2:
-                print("Tutorial Superado");
-                TutorialSuperado = true;
-                SceneManager.LoadScene("Game");
-                break;
-        }
-    }
-
 }
 // Enum para representar los diferentes estados del juego
 public enum EstadosJuego

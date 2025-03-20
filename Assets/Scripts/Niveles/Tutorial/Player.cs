@@ -45,6 +45,7 @@ public class Player : MonoBehaviour
         {
             Instance = this;
         }
+        DontDestroyOnLoad(gameObject);
     }
 
     private void Start()

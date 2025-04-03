@@ -3,12 +3,12 @@ using UnityEngine;
 public class S_Nivel1 : MonoBehaviour
 {
     [Header ("Player")]
-    public T_Player player;
+    public Player player;
     [SerializeField] private Transform[] spawnPoints;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        player = FindObjectOfType<T_Player>();
+        player = FindObjectOfType<Player>();
 
         for (int i = 0; i < 5; i++)
         {

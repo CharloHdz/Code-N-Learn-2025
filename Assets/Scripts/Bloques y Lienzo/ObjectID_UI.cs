@@ -10,7 +10,7 @@ using Unity.VisualScripting;  // Añadir la referencia correcta para Image
 public class ObjectID_UI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [Header ("Player")]
-    public T_Player player;
+    public Player player;
     [Header("Datos del objeto")]
     public int ID;
     public bool IsBlockInsideCanvas;
@@ -146,31 +146,31 @@ public class ObjectID_UI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         switch (tipoBloque)
         {
             case TipoBloque.Saltar:
-                if(T_Player.Instance.estadoAnterior == "Saltar"){
-                    T_Player.Instance.PlayerRB.AddForce(transform.up * 5, ForceMode2D.Impulse);
+                if(Player.Instance.estadoAnterior == "Saltar"){
+                    Player.Instance.PlayerRB.AddForce(transform.up * 5, ForceMode2D.Impulse);
                 } else {
-                    T_Player.Instance.PlayerRB.AddForce(transform.up * 5, ForceMode2D.Impulse);
+                    Player.Instance.PlayerRB.AddForce(transform.up * 5, ForceMode2D.Impulse);
                 }
                 
                 //Player.Instance.AnimJump();
-                T_Player.Instance.estado = EstadosJugador.Saltar;
+                Player.Instance.estado = EstadosJugador.Saltar;
                 break;
               case TipoBloque.Agacharse:
                 Debug.Log("Agachar");
-                T_Player.Instance.estado = EstadosJugador.Idle;
+                Player.Instance.estado = EstadosJugador.Idle;
                 break;
             case TipoBloque.Avanzar:
-                T_Player.Instance.estado = EstadosJugador.Avanzar;
+                Player.Instance.estado = EstadosJugador.Avanzar;
                 //Player.Instance.AnimRun();
                 break;
             case TipoBloque.AvanzarNum:
                 Debug.Log("AvanzarNum");
-                T_Player.Instance.estado = EstadosJugador.Avanzar;
+                Player.Instance.estado = EstadosJugador.Avanzar;
                 break;
             case TipoBloque.Disparar:
                 Debug.Log("Disparar");
-                T_Player.Instance.estado = EstadosJugador.Disparar;
-                T_Player.Instance.StartCoroutine(T_Player.Instance.Disparar(0.8f));
+                Player.Instance.estado = EstadosJugador.Disparar;
+                Player.Instance.StartCoroutine(Player.Instance.Disparar(0.8f));
                 break;
         }
     }
@@ -183,7 +183,7 @@ public class ObjectID_UI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     public void InstruccionCompleta()
     {
         instruccionCompletada = true;
-        T_Player.Instance.ResetTriggers();
+        Player.Instance.ResetTriggers();
     }
 
     public void AcomodarObjeto()

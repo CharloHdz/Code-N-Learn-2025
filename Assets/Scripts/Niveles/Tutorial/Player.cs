@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class T_Player : MonoBehaviour
+public class Player : MonoBehaviour
 {
-    public static T_Player Instance { get; private set; }
+    public static Player Instance { get; private set; }
     [Header("Parámetros")]
     public float velocidad;
     public float posX;

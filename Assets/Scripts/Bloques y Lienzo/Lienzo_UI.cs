@@ -12,7 +12,7 @@ public class Lienzo_UI : MonoBehaviour
     public List<GameObject> ObjectIDList;  // Lista de objetos UI
     public RectTransform panelRectTransform;  // Referencia al área del lienzo (Panel)
     public Canvas canvas;  // Referencia al Canvas, necesario para calcular las posiciones en pantalla
-    public T_Player player;
+    public Player player;
     
     [Header("Play Button Settings")]
     [SerializeField] private GameObject PlayBtn;
@@ -46,7 +46,7 @@ public class Lienzo_UI : MonoBehaviour
     // =================== MÉTODOS DE UNITY ===================
     void Start()
     {
-        player = FindObjectOfType<T_Player>();
+        player = FindObjectOfType<Player>();
         ObjectIDList = new List<GameObject>();  // Inicializamos la lista de objetos
         PlayBtnImage = PlayBtn.GetComponent<Image>();
 
@@ -79,7 +79,7 @@ public class Lienzo_UI : MonoBehaviour
 
     public IEnumerator PlayGame()
     {
-        switch(T_Player.Instance.KillSwitch)
+        switch(Player.Instance.KillSwitch)
         {
             case true:
                 print("PERRAAAAAA");
@@ -87,15 +87,15 @@ public class Lienzo_UI : MonoBehaviour
             case false:
                 EstadoJuego = "Leyendo";
                 PlayBtnImage.sprite = PlayBtnState[1];
-                player.transform.position = T_Player.Instance.SpawnPoint.position;
-                T_Player.Instance.posX = player.transform.position.x;
+                player.transform.position = Player.Instance.SpawnPoint.position;
+                Player.Instance.posX = player.transform.position.x;
 
                 for (int i = 0; i < ObjectIDList.Count; i++)
                 {
                     // Llamar a la instrucción de cada objeto si está dentro del panel
                     if (IsObjectInsidePanel(ObjectIDList[i]))
                     {
-                        T_Player.Instance.GuardarEstadoJugador();
+                        Player.Instance.GuardarEstadoJugador();
                         ObjectIDList[i].GetComponent<ObjectID_UI>().Instruction();
                         ObjectIDList[i].GetComponent<ObjectID_UI>().InstruccionCompleta();
                     }
@@ -106,7 +106,7 @@ public class Lienzo_UI : MonoBehaviour
                     //Ejecutar acción cuando se hayan completado todas las instrucciones
                     if (i == ObjectIDList.Count - 1)
                     {
-                        T_Player.Instance.estado = EstadosJugador.Idle;
+                        Player.Instance.estado = EstadosJugador.Idle;
                         EstadoJuego = "Lectura Completada";
                         PlayBtnImage.sprite = PlayBtnState[0];
                     }
@@ -117,7 +117,7 @@ public class Lienzo_UI : MonoBehaviour
     }
 
     public void Transform(){
-        player.transform.position = T_Player.Instance.SpawnPoint.position;
+        player.transform.position = Player.Instance.SpawnPoint.position;
     }
 
     public void ResetBlock()
@@ -155,14 +155,14 @@ public class Lienzo_UI : MonoBehaviour
                 case TipoBloque.Avanzar:
                     Salto = false;
                     PreviewPosX += 2;
-                    Vector3 previewPosition = T_Player.Instance.SpawnPoint.position + new Vector3(PreviewPosX, 0, 0);
+                    Vector3 previewPosition = Player.Instance.SpawnPoint.position + new Vector3(PreviewPosX, 0, 0);
                     LlamarPreview("Avanzar", previewPosition);
                     break;
 
                 case TipoBloque.Saltar:
                     Salto = true;
                     PreviewPosX += 2;
-                    Vector3 previewPosition1 = T_Player.Instance.SpawnPoint.position + new Vector3(PreviewPosX, 0, 0);
+                    Vector3 previewPosition1 = Player.Instance.SpawnPoint.position + new Vector3(PreviewPosX, 0, 0);
                     LlamarPreview("Saltar", previewPosition1);
                     break;
 

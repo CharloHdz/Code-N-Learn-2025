@@ -2337,6 +2337,16 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
+  - first: {x: 2, y: 3, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 225
+      m_TileSpriteIndex: 225
+      m_TileMatrixIndex: 1
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
   - m_RefCount: 1
@@ -2789,6 +2799,8 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 19beb2047b838b744b30bd87fe728e5f, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 0827ea7788929554589d0c6a944091be, type: 2}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 984e1d356ce3afe489c8e9a6347cd23b, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 1
     m_Data: {fileID: 5441223297315994465, guid: 471906a5ba624ce478b6448fb9e0a892, type: 3}
@@ -3240,6 +3252,8 @@ Tilemap:
     m_Data: {fileID: 537978917, guid: 471906a5ba624ce478b6448fb9e0a892, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 6937817954938267909, guid: 422fe2a8c77f21f42bb1d1aeb3daa0b7, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: 7499154508442906066, guid: acd808c69026d0941bf93c1f9e1dca19, type: 3}
   m_TileMatrixArray:
   - m_RefCount: 224
     m_Data:
@@ -3259,7 +3273,7 @@ Tilemap:
       e31: 0
       e32: 0
       e33: 1
-  - m_RefCount: 1
+  - m_RefCount: 2
     m_Data:
       e00: 1
       e01: 0
@@ -3278,7 +3292,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 225
+  - m_RefCount: 226
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -3356,7 +3370,7 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!114 &1152223187120784781
+--- !u!114 &6602673111304701796
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

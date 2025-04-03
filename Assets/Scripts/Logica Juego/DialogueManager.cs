@@ -16,7 +16,6 @@ public class DialogueManager : MonoBehaviour
         RectTransform rt = GetComponent<RectTransform>();
         dialogueText.text = dialogos[0].dialogo;
         rt.anchoredPosition = dialogos[0].Posicion;
-        Prev.SetActive(false);
     }
 
     // Update is called once per frame
@@ -36,14 +35,6 @@ public class DialogueManager : MonoBehaviour
                 {
                     dialogueText.text = dialogos[i + 1].dialogo;
                     rt.anchoredPosition = dialogos[i + 1].Posicion;
-                    if (dialogos[i + 1].SetAnim == true)
-                    {
-                        Prev.SetActive(true);
-                    }
-                    else
-                    {
-                        Prev.SetActive(false);
-                    }
                     break;
                 }
                 else

@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class S_Tutorial : MonoBehaviour
 {
-    public Player player;
+    public T_Player player;
 
     [Header ("Elementos Tutorial")]
     public GameObject[] TutorialElements;
@@ -35,8 +35,8 @@ public class S_Tutorial : MonoBehaviour
         switch (MetaTutorial)
         {
             case 1:
-                Player.Instance.SpawnPoint.transform.position = InicioNivel2.position;
-                Player.Instance.Parar();
+                T_Player.Instance.SpawnPoint.transform.position = InicioNivel2.position;
+                T_Player.Instance.Parar();
                 StartCoroutine(Lienzo_UI.Instance.EliminarBloquesEnLienzo(0.5f));
                 maxDistanceTutorial = InicioNivel2.position.x;
                 break;
@@ -47,4 +47,12 @@ public class S_Tutorial : MonoBehaviour
                 break;
         }
     }
+
+    #region Botones
+    public void OmitirTutorial()
+    {
+        GameManager.instance.TutorialSuperado = true;
+        SceneManager.LoadScene("Nivel1");
+    }
+    #endregion
 }

@@ -10,7 +10,7 @@ using Unity.VisualScripting;  // Añadir la referencia correcta para Image
 public class ObjectID_UI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [Header ("Player")]
-    public Player player;
+    public T_Player player;
     [Header("Datos del objeto")]
     public int ID;
     public bool IsBlockInsideCanvas;
@@ -20,7 +20,6 @@ public class ObjectID_UI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     [SerializeField] private Image image;
     private Lienzo_UI lienzoUI;  // Referencia al lienzo para verificar la "entrada" del objeto
     [SerializeField] private List<Sprite> TipeBlockImage;
-    [SerializeField] private RectTransform BlockRectTransform;
     private Vector2 originalPosition;
     [SerializeField] private DeleteArea_UI deleteArea;
     [SerializeField] private GameObject blockCopy;
@@ -52,7 +51,6 @@ public class ObjectID_UI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         originalPosition = rectTransform.anchoredPosition;  // Guardamos la posición original
         deleteArea = FindObjectOfType<DeleteArea_UI>();
         image = GetComponent<Image>();
-        BlockRectTransform = GetComponent<RectTransform>();
     }
 
     void Update()
@@ -148,31 +146,31 @@ public class ObjectID_UI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         switch (tipoBloque)
         {
             case TipoBloque.Saltar:
-                if(Player.Instance.estadoAnterior == "Saltar"){
-                    Player.Instance.PlayerRB.AddForce(transform.up * 5, ForceMode2D.Impulse);
+                if(T_Player.Instance.estadoAnterior == "Saltar"){
+                    T_Player.Instance.PlayerRB.AddForce(transform.up * 5, ForceMode2D.Impulse);
                 } else {
-                    Player.Instance.PlayerRB.AddForce(transform.up * 5, ForceMode2D.Impulse);
+                    T_Player.Instance.PlayerRB.AddForce(transform.up * 5, ForceMode2D.Impulse);
                 }
                 
                 //Player.Instance.AnimJump();
-                Player.Instance.estado = EstadosJugador.Saltar;
+                T_Player.Instance.estado = EstadosJugador.Saltar;
                 break;
               case TipoBloque.Agacharse:
                 Debug.Log("Agachar");
-                Player.Instance.estado = EstadosJugador.Idle;
+                T_Player.Instance.estado = EstadosJugador.Idle;
                 break;
             case TipoBloque.Avanzar:
-                Player.Instance.estado = EstadosJugador.Avanzar;
+                T_Player.Instance.estado = EstadosJugador.Avanzar;
                 //Player.Instance.AnimRun();
                 break;
             case TipoBloque.AvanzarNum:
                 Debug.Log("AvanzarNum");
-                Player.Instance.estado = EstadosJugador.Avanzar;
+                T_Player.Instance.estado = EstadosJugador.Avanzar;
                 break;
             case TipoBloque.Disparar:
                 Debug.Log("Disparar");
-                Player.Instance.estado = EstadosJugador.Disparar;
-                Player.Instance.StartCoroutine(Player.Instance.Disparar(0.8f));
+                T_Player.Instance.estado = EstadosJugador.Disparar;
+                T_Player.Instance.StartCoroutine(T_Player.Instance.Disparar(0.8f));
                 break;
         }
     }
@@ -185,7 +183,7 @@ public class ObjectID_UI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     public void InstruccionCompleta()
     {
         instruccionCompletada = true;
-        Player.Instance.ResetTriggers();
+        T_Player.Instance.ResetTriggers();
     }
 
     public void AcomodarObjeto()

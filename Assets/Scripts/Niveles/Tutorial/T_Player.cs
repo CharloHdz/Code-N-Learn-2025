@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Player : MonoBehaviour
+public class T_Player : MonoBehaviour
 {
-    public static Player Instance { get; private set; }
+    public static T_Player Instance { get; private set; }
     [Header("Parámetros")]
     public float velocidad;
     public float posX;
@@ -33,25 +33,9 @@ public class Player : MonoBehaviour
     [Header ("Versión de Niveles")]
     public VersionPlayer versionPlayer;
     public enum VersionPlayer{T, N1, N2, N3, N4, N5}
-
-    private void Awake()
-    {
-        // Configuración Singleton
-        if (Instance != null && Instance != this)
-        {
-            Destroy(this);
-        }
-        else
-        {
-            Instance = this;
-        }
-        DontDestroyOnLoad(gameObject);
-    }
-
     private void Start()
     {
         PlayerRB = GetComponent<Rigidbody2D>();
-        SpawnPoint = GameObject.Find("SpawnPoint").transform;
 
         for (int i = 0; i < Proyectiles.Length; i++)
         {

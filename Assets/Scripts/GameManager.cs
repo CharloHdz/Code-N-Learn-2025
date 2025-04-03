@@ -99,7 +99,6 @@ public class GameManager : MonoBehaviour
     //Acciones de Botones
     public void B_Jugar(){
         if(!TutorialSuperado){
-            SceneManager.LoadScene("Tutorial");
             CambiarEstado(EstadosJuego.PlayTutorial);
         }else{
             SceneManager.LoadScene("Nivel1");
@@ -162,31 +161,31 @@ public class GameManager : MonoBehaviour
                 GamePanels[0].SetActive(true);
                 break;
             case EstadosJuego.PlayTutorial:
-                GamePanels[1].SetActive(true);
-                GamePanels[2].SetActive(true);
+
+                //Cambiar escena a la del tutorial
+                SceneManager.LoadScene("Tutorial");
                 break;
             case EstadosJuego.ResumeTutorial:
-                GamePanels[1].SetActive(true);
+                
                 break;
             case EstadosJuego.PlayGame:
-                GamePanels[2].SetActive(true);
+                SceneManager.LoadScene("Nivel1");
                 Lienzo_UI.Instance.RestartPreviewPos();
                 break;
             case EstadosJuego.Pause:
-                GamePanels[3].SetActive(true);
+                GamePanels[1].SetActive(true);
                 break;
             case EstadosJuego.ResumeGame:
-                GamePanels[2].SetActive(true);
                 Lienzo_UI.Instance.RestartPreviewPos();
                 break;
             case EstadosJuego.Config:
-                GamePanels[4].SetActive(true);
+                GamePanels[2].SetActive(true);
                 break;
             case EstadosJuego.GameOver:
-                GamePanels[5].SetActive(true);
+                GamePanels[3].SetActive(true);
                 break;
             case EstadosJuego.Creditos:
-                GamePanels[6].SetActive(true);
+                GamePanels[4].SetActive(true);
                 break;
         }
     }

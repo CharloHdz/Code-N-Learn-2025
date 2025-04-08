@@ -33,6 +33,21 @@ public class Player : MonoBehaviour
     [Header ("Versión de Niveles")]
     public VersionPlayer versionPlayer;
     public enum VersionPlayer{T, N1, N2, N3, N4, N5}
+
+    private void Awake()
+    {
+        // Configuración Singleton
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+        DontDestroyOnLoad(gameObject);
+    }
+
     private void Start()
     {
         PlayerRB = GetComponent<Rigidbody2D>();

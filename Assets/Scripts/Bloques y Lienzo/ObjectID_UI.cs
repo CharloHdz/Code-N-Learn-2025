@@ -9,8 +9,6 @@ using Unity.VisualScripting;  // Añadir la referencia correcta para Image
 
 public class ObjectID_UI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    [Header ("Player")]
-    public Player player;
     [Header("Datos del objeto")]
     public int ID;
     public bool IsBlockInsideCanvas;

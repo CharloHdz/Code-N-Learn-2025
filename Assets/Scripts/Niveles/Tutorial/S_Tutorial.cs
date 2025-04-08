@@ -10,7 +10,6 @@ public class S_Tutorial : MonoBehaviour
     public int MetaTutorial;
     public Transform InicioNivel2;
     [SerializeField] private float maxDistanceTutorial;
-    public GameObject[] spawnPoints;
     //singleton
     public static S_Tutorial Instance { get; private set; }
     // Start is called once before the first execution of Update after the MonoBehaviour is created

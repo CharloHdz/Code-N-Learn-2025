@@ -2,55 +2,86 @@ using UnityEngine;
 
 public class SelectorPlayer : MonoBehaviour
 {
-    public float velocidad = 5f;
-    private Rigidbody2D rb;
-    private Vector3 input;
+    [Header("Movimiento")]
+    public float moveSpeed = 5f;
+    public float jumpForce = 12f;
+    private float moveInput;
 
-    private Animator anim;
+    [Header("Componentes")]
+    private Rigidbody2D rb;
+    private Animator animator;
+    private SpriteRenderer sr;
+
+    [Header("Salto")]
+    public Transform groundCheck;
+    public float checkRadius = 0.2f;
+    public LayerMask groundLayer;
+    private bool isGrounded;
+    private int jumpCount = 0;
+    public int maxJumps = 2;
+
+    [Header("Ataque")]
+    public bool isAttacking = false;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
+        sr = GetComponent<SpriteRenderer>();
     }
 
     void Update()
     {
-        // Captura input de teclado
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-        input = new Vector3(horizontal, 0f, vertical).normalized;
+        // Movimiento lateral
+        moveInput = Input.GetAxisRaw("Horizontal");
+        rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
 
-        //Salto con espacio
-        if (Input.GetKeyDown(KeyCode.Space))
+        // Mirar hacia el lado correcto
+        if (moveInput != 0)
+            sr.flipX = moveInput < 0;
+
+        // Verificar si está en el suelo
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayer);
+        if (isGrounded) jumpCount = 0;
+
+        // Saltar / Doble salto
+        if (Input.GetKeyDown(KeyCode.Space) && jumpCount < maxJumps)
         {
-            rb.AddForce(Vector2.up * 5f, ForceMode2D.Impulse);
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            jumpCount++;
         }
 
-        //Animaciones Set Float
-        //1. Idle, 2. Run, 3. Attack, 4. Jump
-        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D)){
-            anim.SetFloat("Action", 1);
+        // Ataque (placeholder con click izquierdo)
+        if (Input.GetMouseButtonDown(0) && !isAttacking)
+        {
+            StartCoroutine(Attack());
         }
-        else if (Input.GetKeyDown(KeyCode.F)){
-            anim.SetFloat("Action", 3);
+
+        // Animaciones
+        if (isAttacking)
+        {
+            animator.SetFloat("Action", 3f); // Ataque
         }
-        else if (Input.GetKeyDown(KeyCode.Space)){
-            anim.SetFloat("Action", 4);
+        else if (!isGrounded)
+        {
+            animator.SetFloat("Action", 4f); // Salto
         }
-        else if (input == Vector3.zero){
-            anim.SetFloat("Action", 1);
+        else if (moveInput != 0)
+        {
+            animator.SetFloat("Action", 2f); // Correr
         }
-        else{
-            anim.SetFloat("Action", 2);
+        else
+        {
+            animator.SetFloat("Action", 1f); // Idle
         }
     }
 
-    void FixedUpdate()
+    System.Collections.IEnumerator Attack()
     {
-        // Movimiento con física
-        Vector3 movimiento = input * velocidad;
-        rb.linearVelocity = new Vector3(movimiento.x, rb.linearVelocity.y, movimiento.z);
+        isAttacking = true;
+        animator.SetFloat("Action", 3f);
+        yield return new WaitForSeconds(0.5f); // Duración del ataque
+        isAttacking = false;
     }
 
 }

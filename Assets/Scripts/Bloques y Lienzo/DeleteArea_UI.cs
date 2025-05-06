@@ -4,6 +4,8 @@ public class DeleteArea_UI : MonoBehaviour
 {
     public RectTransform rectTransform;
     public Canvas canvas;
+
+    public bool isActive;
     // Start is called before the first frame update
     void Start()
     {

@@ -23,6 +23,7 @@ public class InputBlocks : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     public string InputKey;
     public TMP_Dropdown dropdown;
     public bool Engaged;
+    public DeleteArea_UI deleteArea;
     void OnEnable()
     {
         lienzo = FindObjectOfType<Lienzo>();
@@ -94,10 +95,17 @@ public class InputBlocks : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         {
             rectTransform.anchoredPosition = movePos;
         } // Ajustar la posición del objeto arrastrado
+
+        deleteArea.gameObject.SetActive(deleteArea.IsObjectInsidePanel(gameObject));
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (deleteArea.IsObjectInsidePanel(gameObject))
+        {
+            Destroy(gameObject);
+            deleteArea.ClosePanel();
+        }
         // Código para manejar el final del arrastre
         Debug.Log("Fin del arrastre: " + gameObject.name);
         Engaged = false;

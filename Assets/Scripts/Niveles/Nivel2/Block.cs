@@ -14,6 +14,7 @@ public class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
     public TipoBlock tipoBlock;
     public TMP_Dropdown DD_direccion;
     public N2_Player player;
+    public DeleteArea_UI deleteArea;
 
     void Start()
     {
@@ -40,10 +41,17 @@ public class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
             rectTransform.anchoredPosition = movePos;
             currentInputBlock = null; // Reset currentInputBlock to null while dragging
         }
+
+        deleteArea.gameObject.SetActive(deleteArea.IsObjectInsidePanel(gameObject));
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (deleteArea.IsObjectInsidePanel(gameObject))
+        {
+            Destroy(gameObject);
+            deleteArea.ClosePanel();
+        }
         Debug.Log("Fin del arrastre: " + gameObject.name);
         currentInputBlock = null; // Reset currentInputBlock to null when dragging ends
 

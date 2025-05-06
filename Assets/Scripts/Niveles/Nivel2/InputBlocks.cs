@@ -1,6 +1,9 @@
 using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using TMPro;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class InputBlocks : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
@@ -12,7 +15,14 @@ public class InputBlocks : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     public AnchorIB anchorIB;
 
     public GameObject Block;
+    public Block blockScript;
     public bool Blockegange;
+
+    [Header ("Valores")]
+    public TMP_InputField inputField;
+    public string InputKey;
+    public TMP_Dropdown dropdown;
+    public bool Engaged;
     void OnEnable()
     {
         lienzo = FindObjectOfType<Lienzo>();
@@ -32,12 +42,47 @@ public class InputBlocks : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         {
             Block.transform.position = new Vector2(anchorIB.rectTransform.position.x, anchorIB.rectTransform.position.y);
         }
-    }
+
+            if (Engaged){
+            //Logica del Input Block
+            switch (dropdown.value){
+                case 0:
+                    if (Input.GetKeyDown(KeyCode.W) || Input.GetAxis("Vertical") > 0){
+                        print("W Presionado");
+                        //Ejecutar Instruccion del bloque
+                        blockScript.Instruccion();
+                    }
+                    break;
+                case 1:
+                    if (Input.GetKeyDown(KeyCode.A) || Input.GetAxis("Horizontal") < 0){
+                        print("A Presionado");
+                        //Ejecutar Instruccion del bloque
+                        blockScript.Instruccion();
+                    }
+                    break;
+                case 2:
+                    if (Input.GetKeyDown(KeyCode.S) || Input.GetAxis("Vertical") < 0){
+                        print("S Presionado");
+                        //Ejecutar Instruccion del bloque
+                        blockScript.Instruccion();
+                    }
+                    break;
+                case 3:
+                    if (Input.GetKeyDown(KeyCode.D) || Input.GetAxis("Horizontal") > 0){
+                        print("D Presionado");
+                        //Ejecutar Instruccion del bloque
+                        blockScript.Instruccion();
+                    }
+                    break;
+                }
+            }
+        }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
         // Código para manejar el inicio del arrastre
         Debug.Log("Inicio del arrastre: " + gameObject.name);
+        Engaged = false;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -55,11 +100,13 @@ public class InputBlocks : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     {
         // Código para manejar el final del arrastre
         Debug.Log("Fin del arrastre: " + gameObject.name);
+        Engaged = false;
 
         if (lienzo.IsObjectInsidePanel(gameObject))
         {
             // Si el objeto está dentro del panel, acomodar el objeto en medio del lienzo (En medio en pos Y)
             transform.position = new Vector3(lienzo.rectTransform.position.x, transform.position.y, 0);
+            Engaged = true;
         }
     }
 

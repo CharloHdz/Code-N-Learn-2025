@@ -27,7 +27,9 @@ public class InputBlocks : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     void OnEnable()
     {
         lienzo = FindObjectOfType<Lienzo>();
-        canvas = GetComponentInParent<Canvas>();
+        canvas = FindAnyObjectByType<Canvas>();
+        deleteArea = FindObjectOfType<DeleteArea_UI>();
+        blockScript = Block.GetComponent<Block>();
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -96,7 +98,7 @@ public class InputBlocks : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             rectTransform.anchoredPosition = movePos;
         } // Ajustar la posición del objeto arrastrado
 
-        deleteArea.gameObject.SetActive(deleteArea.IsObjectInsidePanel(gameObject));
+        deleteArea.deleteArea.SetActive(deleteArea.IsObjectInsidePanel(gameObject));
     }
 
     public void OnEndDrag(PointerEventData eventData)

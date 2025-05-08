@@ -16,10 +16,16 @@ public class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
     public N2_Player player;
     public DeleteArea_UI deleteArea;
 
-    void Start()
+    void OnEnable()
     {
         rectTransform = GetComponent<RectTransform>();
-        canvas = GetComponentInParent<Canvas>();
+        canvas = FindObjectOfType<Canvas>();
+        player = FindObjectOfType<N2_Player>();
+        deleteArea = FindObjectOfType<DeleteArea_UI>();
+    }
+
+    void Start()
+    {
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -42,7 +48,7 @@ public class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
             currentInputBlock = null; // Reset currentInputBlock to null while dragging
         }
 
-        deleteArea.gameObject.SetActive(deleteArea.IsObjectInsidePanel(gameObject));
+        deleteArea.deleteArea.SetActive(deleteArea.IsObjectInsidePanel(gameObject));
     }
 
     public void OnEndDrag(PointerEventData eventData)

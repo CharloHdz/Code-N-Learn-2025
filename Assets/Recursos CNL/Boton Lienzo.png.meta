@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Boton Lienzo_0: -77628147638910128
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

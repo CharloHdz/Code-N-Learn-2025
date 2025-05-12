@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Boton Sacar Action Run_0: 3173057369780226166
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

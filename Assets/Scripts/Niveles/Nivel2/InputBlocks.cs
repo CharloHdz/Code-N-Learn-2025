@@ -24,6 +24,9 @@ public class InputBlocks : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     public TMP_Dropdown dropdown;
     public bool Engaged;
     public DeleteArea_UI deleteArea;
+
+    [Header("Input Buttons0")]
+    public InputButtonHandler inputButtonHandler;
     void OnEnable()
     {
         lienzo = FindObjectOfType<Lienzo>();
@@ -47,37 +50,34 @@ public class InputBlocks : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         }
 
             if (Engaged){
-            //Logica del Input Block
-            switch (dropdown.value){
-                case 0:
-                    if (Input.GetKeyDown(KeyCode.W) || Input.GetAxis("Vertical") > 0){
-                        print("W Presionado");
-                        //Ejecutar Instruccion del bloque
-                        blockScript.Instruccion();
-                    }
-                    break;
-                case 1:
-                    if (Input.GetKeyDown(KeyCode.A) || Input.GetAxis("Horizontal") < 0){
-                        print("A Presionado");
-                        //Ejecutar Instruccion del bloque
-                        blockScript.Instruccion();
-                    }
-                    break;
-                case 2:
-                    if (Input.GetKeyDown(KeyCode.S) || Input.GetAxis("Vertical") < 0){
-                        print("S Presionado");
-                        //Ejecutar Instruccion del bloque
-                        blockScript.Instruccion();
-                    }
-                    break;
-                case 3:
-                    if (Input.GetKeyDown(KeyCode.D) || Input.GetAxis("Horizontal") > 0){
-                        print("D Presionado");
-                        //Ejecutar Instruccion del bloque
-                        blockScript.Instruccion();
-                    }
-                    break;
+            // Dentro del Update()
+                switch (dropdown.value){
+                    case 0:
+                        if (Input.GetKeyDown(KeyCode.W) || Input.GetAxis("Vertical") > 0 || InputButtonController.instance.UP){
+                            print("W Presionado");
+                            blockScript.Instruccion();
+                        }
+                        break;
+                    case 1:
+                        if (Input.GetKeyDown(KeyCode.A) || Input.GetAxis("Horizontal") < 0 || InputButtonController.instance.LEFT){
+                            print("A Presionado");
+                            blockScript.Instruccion();
+                        }
+                        break;
+                    case 2:
+                        if (Input.GetKeyDown(KeyCode.S) || Input.GetAxis("Vertical") < 0 || InputButtonController.instance.DOWN){
+                            print("S Presionado");
+                            blockScript.Instruccion();
+                        }
+                        break;
+                    case 3:
+                        if (Input.GetKeyDown(KeyCode.D) || Input.GetAxis("Horizontal") > 0 || InputButtonController.instance.RIGHT){
+                            print("D Presionado");
+                            blockScript.Instruccion();
+                        }
+                        break;
                 }
+
             }
         }
 
@@ -137,4 +137,8 @@ public class InputBlocks : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     public void Detach(){
         Blockegange = false;
     }
+
+
+    // Input Buttons
+    
 }

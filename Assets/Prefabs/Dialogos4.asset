@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31abd01a4dacd814b93a4eab7a60a5b5, type: 3}
   m_Name: Dialogos4
   m_EditorClassIdentifier: 
-  dialogo: 'Mueve al '
-  Posicion: {x: 0, y: 0}
-  SetAnim: 0
+  ID: 0
+  Fondo: {fileID: -2767846115382095011, guid: 2537df7011fc49e40a066a61c5c15da9, type: 3}
+  sizeRectTransform: {x: 204, y: 60.4}
+  dialogo: Avanzando y saltando, llega a la meta 1
+  MaxFontSize: 10
+  Posicion: {x: 0, y: -112}
+  AnimBloque: 0
+  ShowNextStep: 0

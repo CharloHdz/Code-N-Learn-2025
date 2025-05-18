@@ -13,6 +13,7 @@ public class Lienzo_UI : MonoBehaviour
     public RectTransform panelRectTransform;  // Referencia al área del lienzo (Panel)
     public Canvas canvas;  // Referencia al Canvas, necesario para calcular las posiciones en pantalla
     public Player player;
+    public RectTransform AnchorRectTransform;
     
     [Header("Play Button Settings")]
     [SerializeField] private GameObject PlayBtn;
@@ -59,7 +60,7 @@ public class Lienzo_UI : MonoBehaviour
     }
 
     // =================== MÉTODOS PERSONALIZADOS ===================
-    
+
     // ---- Inicialización ----
     public void InicializarPreviews(GameObject[] previews)
     {

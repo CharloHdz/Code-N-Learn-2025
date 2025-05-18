@@ -12,5 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31abd01a4dacd814b93a4eab7a60a5b5, type: 3}
   m_Name: Dialogo1
   m_EditorClassIdentifier: 
+  ID: 1
+  Fondo: {fileID: -4559366777789430256, guid: b046cdc53d921e543b1f67020b19dcd1, type: 3}
+  sizeRectTransform: {x: 204, y: 112}
   dialogo: "\xA1Bienvenido a Code N' Learn!"
-  Posicion: {x: 0, y: -122.6}
+  MaxFontSize: 0
+  Posicion: {x: 0, y: -65}
+  AnimBloque: 0
+  ShowNextStep: 1

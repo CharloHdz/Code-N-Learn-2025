@@ -114,7 +114,7 @@ public class ObjectID_UI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             rectTransform.anchoredPosition = movePos;
         }
 
-        deleteArea.gameObject.SetActive(deleteArea.IsObjectInsidePanel(gameObject));
+        deleteArea.deleteArea.SetActive(deleteArea.IsObjectInsidePanel(gameObject));
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -187,7 +187,7 @@ public class ObjectID_UI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     public void AcomodarObjeto()
     {
         //Set parent de el lienzo
-        rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, -185);
+        rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, -211);
     }
 }
 

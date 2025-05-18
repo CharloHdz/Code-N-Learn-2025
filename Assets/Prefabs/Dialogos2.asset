@@ -12,6 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31abd01a4dacd814b93a4eab7a60a5b5, type: 3}
   m_Name: Dialogos2
   m_EditorClassIdentifier: 
+  ID: 2
+  Fondo: {fileID: -4559366777789430256, guid: b046cdc53d921e543b1f67020b19dcd1, type: 3}
+  sizeRectTransform: {x: 204, y: 112}
   dialogo: "En este juego, aprender\xE1s sobre l\xF3gica de programaci\xF3n de una
     forma l\xFAdica (chida pues)"
-  Posicion: {x: 103, y: 96.5}
+  MaxFontSize: 0
+  Posicion: {x: 0, y: -65}
+  AnimBloque: 0
+  ShowNextStep: 1

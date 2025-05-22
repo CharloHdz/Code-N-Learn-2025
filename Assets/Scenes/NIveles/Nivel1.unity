@@ -420,7 +420,7 @@ GameObject:
   - component: {fileID: 482956208}
   - component: {fileID: 482956207}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: CanvasNivel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9102,7 +9102,7 @@ Transform:
   m_GameObject: {fileID: 1617550847}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.7333903, y: 0.05050999, z: -10}
+  m_LocalPosition: {x: 5.858395, y: 0.05050999, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10072,6 +10072,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rectTransform: {fileID: 1987140800}
   canvas: {fileID: 482956209}
+  deleteArea: {fileID: 0}
+  isActive: 0
 --- !u!50 &1365711919578502647
 Rigidbody2D:
   serializedVersion: 5

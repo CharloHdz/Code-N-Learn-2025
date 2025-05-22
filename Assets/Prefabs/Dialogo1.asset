@@ -16,7 +16,8 @@ MonoBehaviour:
   Fondo: {fileID: -4559366777789430256, guid: b046cdc53d921e543b1f67020b19dcd1, type: 3}
   sizeRectTransform: {x: 204, y: 112}
   dialogo: "\xA1Bienvenido a Code N' Learn!"
+  TMPContentSize: {x: 0, y: 0}
   MaxFontSize: 0
-  Posicion: {x: 0, y: -65}
+  Posicion: {x: 0, y: -90}
   AnimBloque: 0
   ShowNextStep: 1

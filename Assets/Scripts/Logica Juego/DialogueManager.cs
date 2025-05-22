@@ -3,11 +3,8 @@ using UnityEngine;
 using UnityEngine.UI;
 public class DialogueManager : MonoBehaviour
 {
-    public TextMeshProUGUI dialogueText;
+    [SerializeField] private GameObject[] FondosDialogos;
     [SerializeField] private Dialogos[] dialogos;
-    [SerializeField] private GameObject Prev;
-    public GameObject NextStepBtn;
-    public Image Fondo;
 
     [Header("Objetos")]
     public GameObject[] DialogueObjects;
@@ -18,13 +15,27 @@ public class DialogueManager : MonoBehaviour
     void Start()
     {
         RectTransform rt = GetComponent<RectTransform>();
-        dialogueText.text = dialogos[0].dialogo;
-        rt.anchoredPosition = dialogos[0].Posicion;
-    }
+        //Cargar el primer dialog
+        CerrarDialogo();
+        switch (dialogos)
+        {
+            case Dialogos[] dialogos when dialogos[0].tipoDialogo == Dialogos.TipoDialogo.FondoCortoBoton:
+                FondosDialogos[0].SetActive(true);
+                break;
+            case Dialogos[] dialogos when dialogos[0].tipoDialogo == Dialogos.TipoDialogo.FondoCorto:
+                FondosDialogos[1].SetActive(true);
+                break;
+            case Dialogos[] dialogos when dialogos[0].tipoDialogo == Dialogos.TipoDialogo.FondoLargoBoton:
+                FondosDialogos[2].SetActive(true);
+                break;
+            case Dialogos[] dialogos when dialogos[0].tipoDialogo == Dialogos.TipoDialogo.FondoLargo:
+                FondosDialogos[3].SetActive(true);
+                break;
+            case Dialogos[] dialogos when dialogos[0].tipoDialogo == Dialogos.TipoDialogo.SinFondo:
+                FondosDialogos[4].SetActive(true);
+                break;
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
 
     }
 
@@ -32,55 +43,26 @@ public class DialogueManager : MonoBehaviour
     {
         for (int i = 0; i < dialogos.Length; i++)
         {
-            RectTransform rt = GetComponent<RectTransform>();
-            if (dialogueText.text == dialogos[i].dialogo)
+            if (dialogos[i].ID == 0)
             {
-                if (i + 1 < dialogos.Length)
-                {
-                    dialogueText.text = dialogos[i + 1].dialogo;
-                    rt.anchoredPosition = dialogos[i + 1].Posicion;
-                    NextStepBtn.SetActive(dialogos[i + 1].ShowNextStep);
-                    Fondo.sprite = dialogos[i + 1].Fondo;
-                    rt.sizeDelta = dialogos[i + 1].sizeRectTransform;
-                    dialogueText.fontSize = dialogos[i + 1].MaxFontSize;
-
-
-                    //Aparicion de Objetos
-                    //Desactivamos todos los objetos+
-                    for (int j = 0; j < DialogueObjects.Length; j++)
-                    {
-                        DialogueObjects[j].SetActive(false);
-                    }
-                    switch (dialogos[i + 1].ID)
-                    {
-                        case 1:
-                            //DialogueObjects[0].SetActive(true);
-                            break;
-                        case 2:
-                            //DialogueObjects[1].SetActive(true);
-                            break;
-                        case 3:
-                            DialogueObjects[0].SetActive(true);
-                            break;
-                        case 4:
-                            //DialogueObjects[3].SetActive(true);
-                            break;
-                        case 5:
-                            //DialogueObjects[4].SetActive(true);
-                            break;
-                        default:
-                            break;
-                    }
-
-                    break;
-                }
-                else
-                {
-                    dialogueText.text = dialogos[0].dialogo;
-                    rt.anchoredPosition = dialogos[0].Posicion;
-                    break;
-                }
+                //Desactivar el dialogo actual
+                FondosDialogos[i].SetActive(false);
+                //Activar el siguiente dialogo
+                FondosDialogos[i + 1].SetActive(true);
+                //Actualizar el texto del dialogo
+                DialogueObjects[0].GetComponent<TextMeshProUGUI>().text = dialogos[i + 1].dialogo;
+                //Actualizar la posicion del dialogo
+                RectTransform rt = GetComponent<RectTransform>();
+                rt.anchoredPosition = dialogos[i + 1].Posicion;
             }
+        }
+    }
+
+    public void CerrarDialogo()
+    {
+        for (int i = 0; i < FondosDialogos.Length; i++)
+        {
+            FondosDialogos[i].SetActive(false);
         }
     }
 }

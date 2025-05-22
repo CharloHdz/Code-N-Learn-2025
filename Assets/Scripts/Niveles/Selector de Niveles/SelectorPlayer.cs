@@ -11,6 +11,7 @@ public class SelectorPlayer : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer sr;
+    [SerializeField] private InputButtonController inputButtonController;
 
     [Header("Salto")]
     public Transform groundCheck;
@@ -32,6 +33,26 @@ public class SelectorPlayer : MonoBehaviour
 
     void Update()
     {
+
+        //movimiento con InputButtonController
+        if (inputButtonController.LEFT)
+        {
+            transform.position += Vector3.left * moveSpeed * Time.deltaTime;
+        }
+        if (inputButtonController.RIGHT)
+        {
+            transform.position += Vector3.right * moveSpeed * Time.deltaTime;
+        }
+        if (inputButtonController.SPACE)
+        {
+            if (jumpCount < maxJumps)
+            {   
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            }
+            jumpCount++;
+            inputButtonController.SPACE = false;
+        }
+
         // Movimiento lateral
         moveInput = Input.GetAxisRaw("Horizontal");
         rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);

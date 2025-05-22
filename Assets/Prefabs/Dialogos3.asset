@@ -17,7 +17,8 @@ MonoBehaviour:
   sizeRectTransform: {x: 204, y: 112}
   dialogo: Tu objetivo en este tutorial es mover al personaje hacia el cartel usando
     los bloques de movimiento
+  TMPContentSize: {x: 0, y: 0}
   MaxFontSize: 0
-  Posicion: {x: 0, y: -65}
+  Posicion: {x: 0, y: -90}
   AnimBloque: 0
   ShowNextStep: 1

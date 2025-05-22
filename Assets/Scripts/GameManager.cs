@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public GameObject[] GamePanels;
     public EstadosJuego estadoJuego;
     public string EstadoAnterior;
+    public Canvas CanvasActual;
 
 
     [Header("Variables Generales")]
@@ -73,7 +74,8 @@ public class GameManager : MonoBehaviour
             if (estadoJuego == EstadosJuego.PlayTutorial || estadoJuego == EstadosJuego.ResumeTutorial)
             {
                 CambiarEstado(EstadosJuego.Pause);
-            } else if (estadoJuego == EstadosJuego.Pause && EstadoAnterior == "PlayTutorial" 
+            }
+            else if (estadoJuego == EstadosJuego.Pause && EstadoAnterior == "PlayTutorial"
             || estadoJuego == EstadosJuego.Pause && EstadoAnterior == "ResumeTutorial")
             {
                 CambiarEstado(EstadosJuego.ResumeTutorial);
@@ -81,18 +83,41 @@ public class GameManager : MonoBehaviour
         }
 
         #region Comandos
-        if(Input.GetKeyDown(KeyCode.N)){
-            if(estadoJuego == EstadosJuego.PlayGame || estadoJuego == EstadosJuego.ResumeGame
-            || estadoJuego == EstadosJuego.PlayTutorial || estadoJuego == EstadosJuego.ResumeTutorial){
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            if (estadoJuego == EstadosJuego.PlayGame || estadoJuego == EstadosJuego.ResumeGame
+            || estadoJuego == EstadosJuego.PlayTutorial || estadoJuego == EstadosJuego.ResumeTutorial)
+            {
                 //Si esta abierto el panel de niveles, cerrarlo y viceversa
-                if(GamePanels[7].activeSelf){
+                if (GamePanels[7].activeSelf)
+                {
                     GamePanels[7].SetActive(false);
-                }else{
+                }
+                else
+                {
                     GamePanels[7].SetActive(true);
                 }
             }
         }
         #endregion
+
+        //Al cambiar escena, buscar el canvas de la escena
+        if (SceneManager.GetActiveScene().name == "Tutorial")
+        {
+            CanvasActual = GameObject.Find("CanvasNivel").GetComponent<Canvas>();
+        }
+        else if (SceneManager.GetActiveScene().name == "Nivel1")
+        {
+            CanvasActual = GameObject.Find("CanvasNivel").GetComponent<Canvas>();
+        }
+        else if (SceneManager.GetActiveScene().name == "Nivel2")
+        {
+            CanvasActual = GameObject.Find("CanvasNivel").GetComponent<Canvas>();
+        }
+        else if (SceneManager.GetActiveScene().name == "Nivel3")
+        {
+            CanvasActual = GameObject.Find("CanvasNivel").GetComponent<Canvas>();
+        }
     }
 
 #region Botones de Juego
@@ -115,7 +140,13 @@ public class GameManager : MonoBehaviour
     public void B_Config(){
         CambiarEstado(EstadosJuego.Config);
     }
-    public void B_RegresarMenu(){
+    public void B_Niveles()
+    {
+        SceneManager.LoadScene("SelectorNiveles");
+        CambiarEstado(EstadosJuego.PlayGame);
+    }
+    public void B_RegresarMenu()
+    {
         SceneManager.LoadScene("Menu");
         CambiarEstado(EstadosJuego.Menu);
     }
@@ -161,22 +192,23 @@ public class GameManager : MonoBehaviour
                 GamePanels[0].SetActive(true);
                 break;
             case EstadosJuego.PlayTutorial:
-
                 //Cambiar escena a la del tutorial
                 SceneManager.LoadScene("Tutorial");
+                CanvasActual.enabled = true;
                 break;
             case EstadosJuego.ResumeTutorial:
-                
+                CanvasActual.enabled = true;
                 break;
             case EstadosJuego.PlayGame:
-                SceneManager.LoadScene("Nivel1");
-                Lienzo_UI.Instance.RestartPreviewPos();
+                CanvasActual.enabled = true;
                 break;
             case EstadosJuego.Pause:
                 GamePanels[1].SetActive(true);
+                CanvasActual.enabled = false;
                 break;
             case EstadosJuego.ResumeGame:
                 Lienzo_UI.Instance.RestartPreviewPos();
+                CanvasActual.enabled = true;
                 break;
             case EstadosJuego.Config:
                 GamePanels[2].SetActive(true);

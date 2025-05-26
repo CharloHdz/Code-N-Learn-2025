@@ -12,6 +12,7 @@ TagManager:
   - Muerte
   - Enemy
   - Bullet
+  - Canvas
   layers:
   - Default
   - TransparentFX

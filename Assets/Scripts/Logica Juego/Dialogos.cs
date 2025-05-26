@@ -1,7 +1,5 @@
-using Microsoft.Unity.VisualStudio.Editor;
-using Unity.Cinemachine;
 using UnityEngine;
-using UnityEngine.InputSystem.Interactions;
+
 
 [CreateAssetMenu(fileName = "Dialogos", menuName = "ObjetosCHIDOS/Dialogos")]
 public class Dialogos : ScriptableObject

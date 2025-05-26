@@ -1,10 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System.Diagnostics;
 
 public class GameManager : MonoBehaviour
 {
@@ -110,7 +105,7 @@ public class GameManager : MonoBehaviour
         {
             CanvasActual = GameObject.Find("CanvasNivel").GetComponent<Canvas>();
         }
-        else if (SceneManager.GetActiveScene().name == "Nivel2")
+        else if (SceneManager.GetActiveScene().name == "NIvel2")
         {
             CanvasActual = GameObject.Find("CanvasNivel").GetComponent<Canvas>();
         }
@@ -126,14 +121,29 @@ public class GameManager : MonoBehaviour
         if(!TutorialSuperado){
             CambiarEstado(EstadosJuego.PlayTutorial);
         }else{
-            SceneManager.LoadScene("Nivel1");
+            SceneManager.LoadScene("Tutorial");
             CambiarEstado(EstadosJuego.PlayGame);
         }
     }
-    public void B_Continuar(){
-        if(EstadoAnterior == "PlayTutorial" || EstadoAnterior == "ResumeTutorial"){
+    public void B_Pause()
+    {
+        if (estadoJuego == EstadosJuego.PlayGame || estadoJuego == EstadosJuego.ResumeGame)
+        {
+            CambiarEstado(EstadosJuego.Pause);
+        }
+        else if (estadoJuego == EstadosJuego.Pause)
+        {
+            CambiarEstado(EstadosJuego.ResumeGame);
+        }
+    }
+    public void B_Continuar()
+    {
+        if (EstadoAnterior == "PlayTutorial" || EstadoAnterior == "ResumeTutorial")
+        {
             CambiarEstado(EstadosJuego.ResumeTutorial);
-        } else if(EstadoAnterior == "PlayGame" || EstadoAnterior == "ResumeGame"){
+        }
+        else if (EstadoAnterior == "PlayGame" || EstadoAnterior == "ResumeGame")
+        {
             CambiarEstado(EstadosJuego.ResumeGame);
         }
     }
@@ -142,7 +152,14 @@ public class GameManager : MonoBehaviour
     }
     public void B_Niveles()
     {
-        SceneManager.LoadScene("SelectorNiveles");
+        if (SceneManager.GetActiveScene().name == "NIvel2")
+        {
+            SceneManager.LoadScene("Tutorial");
+        }
+        else if (SceneManager.GetActiveScene().name == "Tutorial")
+        {
+            SceneManager.LoadScene("NIvel2");
+        }
         CambiarEstado(EstadosJuego.PlayGame);
     }
     public void B_RegresarMenu()

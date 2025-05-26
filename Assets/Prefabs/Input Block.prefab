@@ -404,8 +404,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.4, y: 14.6}
-  m_SizeDelta: {x: 117.35, y: 30}
+  m_AnchoredPosition: {x: -1.6, y: 14.4}
+  m_SizeDelta: {x: 124.0241, y: 24.285}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7294463477740864783
 CanvasRenderer:
@@ -435,7 +435,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 85a03022d9e9a8641b7e182740dfb876, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -466,10 +466,10 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_NormalColor: {r: 0.7921569, g: 0.6509804, b: 0.12941177, a: 1}
+    m_HighlightedColor: {r: 0.7921569, g: 0.6509804, b: 0.12941177, a: 1}
+    m_PressedColor: {r: 0.74509805, g: 0.5686275, b: 0, a: 1}
+    m_SelectedColor: {r: 0.7921569, g: 0.6509804, b: 0.12941177, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -498,16 +498,16 @@ MonoBehaviour:
     m_Options:
     - m_Text: W (Arriba)
       m_Image: {fileID: 0}
-      m_Color: {r: 1, g: 1, b: 1, a: 1}
+      m_Color: {r: 0.7921569, g: 0.6509804, b: 0.12941177, a: 1}
     - m_Text: A (Izq)
       m_Image: {fileID: 0}
-      m_Color: {r: 1, g: 1, b: 1, a: 1}
+      m_Color: {r: 0.7921569, g: 0.6509804, b: 0.12941177, a: 1}
     - m_Text: S (Abajo)
       m_Image: {fileID: 0}
-      m_Color: {r: 1, g: 1, b: 1, a: 1}
+      m_Color: {r: 0.7921569, g: 0.6509804, b: 0.12941177, a: 1}
     - m_Text: D (Derecha)
       m_Image: {fileID: 0}
-      m_Color: {r: 1, g: 1, b: 1, a: 1}
+      m_Color: {r: 0.7921569, g: 0.6509804, b: 0.12941177, a: 1}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1193,6 +1193,7 @@ MonoBehaviour:
   dropdown: {fileID: 3836559463876771668}
   Engaged: 0
   deleteArea: {fileID: 0}
+  inputButtonHandler: {fileID: 0}
 --- !u!1 &4738273502841025533
 GameObject:
   m_ObjectHideFlags: 0

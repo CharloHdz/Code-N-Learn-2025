@@ -1,9 +1,6 @@
-using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class InputBlocks : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
@@ -101,24 +98,24 @@ public class InputBlocks : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         deleteArea.deleteArea.SetActive(deleteArea.IsObjectInsidePanel(gameObject));
     }
 
-    public void OnEndDrag(PointerEventData eventData)
-    {
-        if (deleteArea.IsObjectInsidePanel(gameObject))
+        public void OnEndDrag(PointerEventData eventData)
         {
-            Destroy(gameObject);
-            deleteArea.ClosePanel();
-        }
-        // Código para manejar el final del arrastre
-        Debug.Log("Fin del arrastre: " + gameObject.name);
-        Engaged = false;
+            if (deleteArea.IsObjectInsidePanel(gameObject))
+            {
+                Destroy(gameObject);
+                deleteArea.ClosePanel();
+            }
+            // Código para manejar el final del arrastre
+            Debug.Log("Fin del arrastre: " + gameObject.name);
+            Engaged = false;
 
-        if (lienzo.IsObjectInsidePanel(gameObject))
-        {
-            // Si el objeto está dentro del panel, acomodar el objeto en medio del lienzo (En medio en pos Y)
-            transform.position = new Vector3(lienzo.rectTransform.position.x, transform.position.y, 0);
-            Engaged = true;
+            if (lienzo.IsObjectInsidePanel(gameObject))
+            {
+                // Si el objeto está dentro del panel, acomodar el objeto en medio del lienzo (En medio en pos Y)
+                transform.position = new Vector3(lienzo.rectTransform.position.x, transform.position.y, 0);
+                Engaged = true;
+            }
         }
-    }
 
     public bool IsObjectInsidePanel(GameObject obj)
     {

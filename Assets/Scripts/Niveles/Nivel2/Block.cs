@@ -1,6 +1,4 @@
-using Microsoft.Unity.VisualStudio.Editor;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 

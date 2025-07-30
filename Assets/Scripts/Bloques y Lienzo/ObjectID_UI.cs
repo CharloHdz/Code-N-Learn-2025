@@ -153,7 +153,7 @@ public class ObjectID_UI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
                 //Player.Instance.AnimJump();
                 Player.Instance.estado = EstadosJugador.Saltar;
                 break;
-              case TipoBloque.Agacharse:
+            case TipoBloque.Agacharse:
                 Debug.Log("Agachar");
                 Player.Instance.estado = EstadosJugador.Idle;
                 break;

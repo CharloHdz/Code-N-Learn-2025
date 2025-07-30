@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Lienzo Fondo_0: 850532592320216173
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
